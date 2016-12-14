@@ -6,15 +6,14 @@
 /*   By: cbeauvoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/10 14:06:39 by cbeauvoi          #+#    #+#             */
-/*   Updated: 2016/12/13 15:19:33 by cbeauvoi         ###   ########.fr       */
+/*   Updated: 2016/12/14 12:01:23 by cbeauvoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
-static int		ft_check_piece(char *piece);
-static int		ft_cut_pieces(char *pieces);
+static int ft_cut_pieces(char *pieces);
+static int ft_check_piece(char *piece);
 
 static int		ft_cut_pieces(char *pieces)
 {
@@ -35,7 +34,9 @@ static int		ft_check_piece(char *piece)
 	if ((real_piece = (char *)malloc(sizeof(char) * 21)) == 0)
 		return (0);
 	ft_memcpy(real_piece, piece, 20);
-	ft_launch_test(real_piece);
+	if (!(ft_launch_test(real_piece)))
+		return (0);
+	free(real_piece);
 	return (1);
 }
 

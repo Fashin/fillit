@@ -6,7 +6,7 @@
 /*   By: cbeauvoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/08 12:12:18 by cbeauvoi          #+#    #+#             */
-/*   Updated: 2016/12/13 12:15:34 by cbeauvoi         ###   ########.fr       */
+/*   Updated: 2016/12/14 11:40:27 by cbeauvoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ int				main(int ac, char **av)
 		print_the_usage(ac);
 		return (0);
 	}
-	if ((content = return_file(av[1])) == 0)
+	if (!(content = return_file(av[1])))
 		return (0);
 	if (!(ft_check_pieces(content)))
+		return (0);
+	if (!(ft_launch_resolve(content)))
 		return (0);
 	return (0);
 }
