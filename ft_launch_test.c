@@ -6,39 +6,39 @@
 /*   By: cbeauvoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 13:07:11 by cbeauvoi          #+#    #+#             */
-/*   Updated: 2016/12/13 16:06:27 by cbeauvoi         ###   ########.fr       */
+/*   Updated: 2016/12/14 11:33:18 by cbeauvoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int		launch_test(char *piece, int (*test[1])(char *, int))
+static int			ft_checkpattern(char *tocheck)
 {
 	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (*piece)
-	{
-		if (*piece == '#')
+	int		countr;
+		
+	i = -1;
+	countr = 0;
+	while (++i < 20)
+		if (tocheck[i] == '#')
 		{
-			while ((test[i](piece, count)) == 0)
+			if (tocheck[i + 1] == '#')
+				countr++;
+			if (tocheck[i - 1] == '#')
+				countr++;
+			if (tocheck[i + 5] == '#')
+				countr++;
+			if (tocheck[i - 5] == '#')
+				countr++;
 		}
-		else if (*piece == '.')
-			count++;
-		else
-			count = 0;
-		piece++;
-	}
+	if (countr >= 6)
+		return (1);
 	return (0);
 }
 
-int			ft_launch_test(char *piece)
+int			ft_launch_test(char *check_pattern)
 {
-	int		(*find_form[1])(char *, int);
-
-	find_form[0] = ft_check_square;
-	launch_test(piece, find_form);
-	return (0);
+	if (!ft_checkpattern(check_pattern))
+		return (0);
+	return (1);
 }
