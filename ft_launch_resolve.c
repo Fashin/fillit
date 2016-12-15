@@ -36,48 +36,44 @@ static char		**cut_the_piece(char *str, int max)
 	return (ret);
 }
 
-static int		ft_test_the_map(char **pieces, char **map)
+static char		*resize_the_piece(char *str)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		l;
+	int	i;
 
 	i = -1;
-	k = 0;
-	while (pieces[++i])
+	while (str[++i])
+		if (str[i] == '#')
+			return (str + i);
+	return (0);
+}
+
+static void		set_tetriminos(char **map, char *tetri)
+{
+	int	a;
+	int	b;
+	int	i;
+
+	i = -1;
+	a = 0;
+	while (map[a])
 	{
-		j = -1;
-		l = -1;
-		while (pieces[i][++j])
+		while (map[a][b])
 		{
-			printf("i = %d ; j = %d ; k = %d ; l = %d\n", i, j, k, l);
-			if (pieces[i][j] == '#')
-			{
-				map[k][++l] = '#';
-				printf("insert on map (#) : %d ; %d\n", k, l);
-			}
-			if (pieces[i][j] == '\n' && l != -1)
-			{
-				k++;
-				l = -1;
-			}
+			
 		}
 	}
-	i = 0;
-	printf("=================\n");
-	printf("Now I display : \n");
-	while (map[i])
+}
+
+static int		ft_test_the_map(char **pieces, char **map, int max)
+{
+	int	i;
+	char	*tmp;
+
+	i = -1;
+	while (++i < max)
 	{
-		j = 0;
-		while (map[i][j])
-		{
-			//printf("i = %d ; j = %d\n", i, j);
-			ft_putchar(map[i][j]);
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
+		tmp = resize_the_piece(pieces[i]);	
+		set_tetriminos(map, tmp);
 	}
 	return (1);
 }
@@ -110,6 +106,6 @@ int				ft_launch_resolve(char *content)
 	count = ((ft_strlen(content) / 21) + 1);
 	pieces = cut_the_piece(content, count);
 	map = ft_get_the_map(4);
-	ft_test_the_map(pieces, map);
+	ft_test_the_map(pieces, map, count);
 	return (1);
 }
