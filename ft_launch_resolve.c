@@ -6,38 +6,46 @@
 /*   By: cbeauvoi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 11:45:34 by cbeauvoi          #+#    #+#             */
-/*   Updated: 2016/12/14 12:14:16 by cbeauvoi         ###   ########.fr       */
+/*   Updated: 2016/12/14 12:50:16 by cbeauvoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static char		**ft_set_map(int size)
+static char		**cut_the_piece(char *str, int max)
 {
-	char 	**map;
 	int		i;
+	char	**ret;
 
-	i = -1;
-	if ((map = (char **)malloc(sizeof(char *) * size)) == 0)
+	if (!(ret = (char **)malloc(sizeof(char *) * max)))
 		return (0);
-	while (map[++i])
-		ft_bzero((void *)map[i], size);
-	return (map);
+	i = -1;
+	while (str[++i])
+	{
+		if (i % 21 == 0)
+		{
+			if (!(*ret = (char *)malloc(sizeof(char) * 21)))
+				return (0);
+			ft_memcpy(*ret, (str + i), 20);
+			ret++;
+		}
+	}
+	return (ret);
 }
 
 int				ft_launch_resolve(char *content)
 {
 	int		count;
-	char	**map;
 	int		i;
+	char	**pieces;
 
-	i = -1;
 	count = ((ft_strlen(content) / 21) + 1);
-	map = ft_set_map(count);
-	while (map[++i])
+	pieces = cut_the_piece(content, count);
+	i = -1;
+	while (pieces[++i])
 	{
-		ft_putstr(map[i]);
+		ft_putstr(pieces[i]);
 		ft_putchar('\n');
 	}
-	return (0);
+	return (1);
 }
